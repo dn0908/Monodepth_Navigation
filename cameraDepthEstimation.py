@@ -26,8 +26,9 @@ while True:
     if time.perf_counter() - video_start_time >= 50:
         break
     # Read frame from the webcam
-    ret, img = camera.read()	
+    ret, img = camera.read()
     ###################################################################
+    cv2.resize(img, (640, 480))
     inference_start_time = time.perf_counter()
     # Estimate depth
     colorDepth = depthEstimator.estimateDepth(img)
