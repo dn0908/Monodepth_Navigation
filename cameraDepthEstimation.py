@@ -12,7 +12,7 @@ start_time = time.perf_counter()
 total_inference_duration = 0
 
 # Initialize webcam
-camera = cv2.VideoCapture(0, cv2.CAP_DSHOW)
+camera = cv2.VideoCapture(0)#, cv2.CAP_DSHOW)
 # cv2.namedWindow("Depth Image", cv2.WINDOW_NORMAL)
 
 out_video = cv2.VideoWriter(
