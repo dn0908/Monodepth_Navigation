@@ -30,7 +30,7 @@ while True:
     ###################################################################
     inference_start_time = time.perf_counter()
     
-	# Estimate depth
+    # Estimate depth
 	colorDepth = depthEstimator.estimateDepth(img)
     
     inference_stop_time = time.perf_counter()
@@ -48,7 +48,7 @@ while True:
     out_video.write(img_out)
 
 	# cv2.imshow("Depth Image", img_out)
-
+    
 	# Press key q to stop
 	if cv2.waitKey(1) == ord('q'):
 		break
