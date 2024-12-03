@@ -14,16 +14,16 @@ total_inference_duration = 0
 # Initialize webcam
 camera = cv2.VideoCapture(0)#, cv2.CAP_DSHOW)
 # cv2.namedWindow("Depth Image", cv2.WINDOW_NORMAL)
-
+fourcc = cv2.VideoWriter_fourcc(*'mp4v')
 out_video = cv2.VideoWriter(
         "output.mp4",
-        cv2.VideoWriter_fourcc(*"mp4v"),
+        fourcc,
         10,
         (2592 * 3, 1944),
     )
 video_start_time = time.perf_counter()
 while True:
-    if time.perf_counter() - video_start_time >= 10:
+    if time.perf_counter() - video_start_time >= 30:
         break
     # Read frame from the webcam
     ret, img = camera.read()	
