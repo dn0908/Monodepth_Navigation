@@ -93,7 +93,7 @@ class midasDepthEstimator():
 		return estimatedDepth
 
 	def drawDepth(self, processedDisparity):
-		return cv2.applyColorMap(processedDisparity, cv2.COLORMAP_MAGMA)
+		return cv2.applyColorMap(processedDisparity)#, cv2.COLORMAP_MAGMA)
 
 	def getModelInputDetails(self):
 		self.input_details = self.interpreter.get_input_details()
