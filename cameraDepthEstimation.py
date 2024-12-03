@@ -40,7 +40,7 @@ while True:
     combinedImg = cv2.addWeighted(img,0.7,colorDepth,0.6,0)
     # Join the input image, the estiamted depth and the combined image
     img_out = np.hstack((img, colorDepth, combinedImg))
-    out_video.write(img_out)
+    out_video.write(colorDepth)
     # cv2.imshow("Depth Image", img_out)
     # # Press key q to stop
     if cv2.waitKey(1) == ord('q'):
@@ -48,4 +48,4 @@ while True:
 
 camera.release()
 # cv2.destroyAllWindows()
-out_video.release()
+# out_video.release()
