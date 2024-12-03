@@ -35,7 +35,7 @@ while True:
     inference_duration = inference_stop_time - inference_start_time
     print("Inference time : ", inference_duration, "s")
     total_inference_duration += inference_duration
-    time.delay(1.5)
+    delay(1.5)
     ###################################################################
     # # Add the depth image over the color image:
     combinedImg = cv2.addWeighted(img,0.7,colorDepth,0.6,0)
