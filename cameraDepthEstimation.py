@@ -25,7 +25,7 @@ while True:
 
 	# Read frame from the webcam
 	ret, img = camera.read()	
-
+    
     ###################################################################
     inference_start_time = time.perf_counter()
     
