@@ -21,8 +21,10 @@ out_video = cv2.VideoWriter(
         10,
         (2592 * 3, 1944),
     )
-
+video_start_time = time.perf_counter()
 while True:
+    if time.perf_counter() - video_start_time >= 10:
+        break
     # Read frame from the webcam
     ret, img = camera.read()	
     ###################################################################
@@ -46,3 +48,4 @@ while True:
 
 camera.release()
 # cv2.destroyAllWindows()
+out_video.release()
