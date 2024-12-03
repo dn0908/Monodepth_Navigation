@@ -28,21 +28,21 @@ while True:
     ###################################################################
     inference_start_time = time.perf_counter()
     # Estimate depth
-	colorDepth = depthEstimator.estimateDepth(img)
+    colorDepth = depthEstimator.estimateDepth(img)
     inference_stop_time = time.perf_counter()
     inference_duration = inference_stop_time - inference_start_time
     print("Inference time : ", inference_duration, "s")
     total_inference_duration += inference_duration
     ###################################################################
-	# Add the depth image over the color image:
-	combinedImg = cv2.addWeighted(img,0.7,colorDepth,0.6,0)
-	# Join the input image, the estiamted depth and the combined image
-	img_out = np.hstack((img, colorDepth, combinedImg))
+    # # Add the depth image over the color image:
+    combinedImg = cv2.addWeighted(img,0.7,colorDepth,0.6,0)
+    # Join the input image, the estiamted depth and the combined image
+    img_out = np.hstack((img, colorDepth, combinedImg))
     out_video.write(img_out)
-	# cv2.imshow("Depth Image", img_out)
-	# Press key q to stop
-	if cv2.waitKey(1) == ord('q'):
-		break
+    # cv2.imshow("Depth Image", img_out)
+    # # Press key q to stop
+    if cv2.waitKey(1) == ord('q'):
+        break
 
 camera.release()
 # cv2.destroyAllWindows()
