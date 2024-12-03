@@ -28,7 +28,7 @@ while True:
     # Read frame from the webcam
     ret, img = camera.read()
     ###################################################################
-    cv2.resize(img, (640, 480))
+    cv2.resize(img, (320, 240))
     inference_start_time = time.perf_counter()
     # Estimate depth
     colorDepth = depthEstimator.estimateDepth(img)
