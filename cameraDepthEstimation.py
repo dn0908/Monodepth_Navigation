@@ -18,7 +18,7 @@ fourcc = cv2.VideoWriter_fourcc(*'mp4v')
 out_video = cv2.VideoWriter(
         "output.mp4",
         fourcc,
-        10,
+        1,
         (640, 480),
     )
 video_start_time = time.perf_counter()
@@ -35,15 +35,15 @@ while True:
     inference_duration = inference_stop_time - inference_start_time
     print("Inference time : ", inference_duration, "s")
     total_inference_duration += inference_duration
-    time.sleep(1.5)
+    # time.sleep(1.5)
     ###################################################################
     # # Add the depth image over the color image:
     combinedImg = cv2.addWeighted(img,0.7,colorDepth,0.6,0)
     # Join the input image, the estiamted depth and the combined image
     img_out = np.hstack((img, colorDepth, combinedImg))
 
-    cv2.resize(colorDepth, (640, 480))
-    out_video.write(colorDepth)
+    cv2.resize(combinedImg, (640, 480))
+    out_video.write(combinedImg)
     # cv2.imshow("Depth Image", img_out)
     # # Press key q to stop
     if cv2.waitKey(1) == ord('q'):
