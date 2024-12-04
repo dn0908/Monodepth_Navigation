@@ -12,7 +12,7 @@ start_time = time.perf_counter()
 total_inference_duration = 0
 
 # Initialize webcam
-camera = cv2.VideoCapture(0, cv2.CAP_DSHOW)
+camera = cv2.VideoCapture(0)
 camera.set(cv2.CAP_PROP_FRAME_WIDTH, 320)
 camera.set(cv2.CAP_PROP_FRAME_HEIGHT, 240)
 
@@ -31,6 +31,7 @@ while True:
         break
     # Read frame from the webcam
     ret, img = camera.read()
+    img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
     ###################################################################
     inference_start_time = time.perf_counter()
     # Estimate depth
