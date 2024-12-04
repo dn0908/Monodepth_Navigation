@@ -10,13 +10,13 @@ try:
     
     message = "F"
     
-    ser.write(message.encode())
+    ser.write(message)
     
     print(f"Message sent: {message}")
     time.sleep(1)
     message = "F"
     
-    ser.write(message.encode())
+    ser.write(message)
     
     print(f"Message sent again: {message}")
     time.sleep(1)
