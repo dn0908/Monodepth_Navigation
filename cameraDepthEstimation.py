@@ -20,7 +20,7 @@ out_video = cv2.VideoWriter(
         "output.mp4",
         fourcc,
         1,
-        (1280, 480),
+        (640, 240),
     )
 video_start_time = time.perf_counter()
 
@@ -29,7 +29,7 @@ while True:
         break
     # Read frame from the webcam
     ret, img = camera.read()
-    img = cv2.resize(img, (640, 480))
+    img = cv2.resize(img, (320, 240))
     ###################################################################
     inference_start_time = time.perf_counter()
     # Estimate depth
@@ -45,7 +45,7 @@ while True:
     # Join the input image, the estiamted depth and the combined image
     #img_out = np.hstack((img, colorDepth, combinedImg))
     img_out = np.hstack((img, colorDepth))
-    cv2.resize(img_out, (1280, 480))
+    cv2.resize(img_out, (640, 240))
     out_video.write(img_out)
     # cv2.imshow("Depth Image", img_out)
     # # Press key q to stop
