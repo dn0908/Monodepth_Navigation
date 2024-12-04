@@ -12,7 +12,10 @@ start_time = time.perf_counter()
 total_inference_duration = 0
 
 # Initialize webcam
-camera = cv2.VideoCapture(0)#, cv2.CAP_DSHOW)
+camera = cv2.VideoCapture(0)
+camera.set(cv2.CAP_PROP_FRAME_WIDTH, 320)
+camera.set(cv2.CAP_PROP_FRAME_HEIGHT, 240)
+
 # cv2.namedWindow("Depth Image", cv2.WINDOW_NORMAL)
 fourcc = cv2.VideoWriter_fourcc(*'mp4v')
 out_video = cv2.VideoWriter(
@@ -22,13 +25,13 @@ out_video = cv2.VideoWriter(
         (1280, 480),
     )
 video_start_time = time.perf_counter()
+
 while True:
     if time.perf_counter() - video_start_time >= 50:
         break
     # Read frame from the webcam
     ret, img = camera.read()
     ###################################################################
-    cv2.resize(img, (320, 240))
     inference_start_time = time.perf_counter()
     # Estimate depth
     colorDepth = depthEstimator.estimateDepth(img)

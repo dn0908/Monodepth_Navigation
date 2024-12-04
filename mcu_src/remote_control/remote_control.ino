@@ -10,40 +10,24 @@ int RCinput[16];
 // #define right_speed;
 int driving_speed;
 
-// RIGHT Motor Pins
-int Dir1_R =5;
-int Dir2_R =4;
-int Speed_R = 6;
-
-// LEFT Motor Pins
-int Dir1_L = 13;
-int Dir2_L = 12;
-int Speed_L = 11;
-
-// Openrb Reset Pin
-int Arm_reset = 8;
+// Motor Pins
+const int IA1=4;
+const int IA2=5;
+const int IB1=7;
+const int IB2=6;
 
 
 void setup() {
   // SERIAL BEGIN
   Serial.begin(115200); 
-  // Right Motor setup
-  pinMode(Dir1_R, OUTPUT);
-  pinMode(Dir2_R, OUTPUT); 
-  pinMode(Speed_R, OUTPUT); 
-  // Left Motor setup
-  pinMode(Dir1_L, OUTPUT); 
-  pinMode(Dir2_L, OUTPUT); 
-  pinMode(Speed_L, OUTPUT);
-
-  // For Openrb reset
-  pinMode(Arm_reset, OUTPUT);
-  digitalWrite(Arm_reset, HIGH);
+  // MOTOR SETUP
+  pinMode(IA1, OUTPUT);
+  pinMode(IA2, OUTPUT);
+  pinMode(IB1, OUTPUT);
+  pinMode(IB2, OUTPUT);
 }
 
 void loop() {
-  digitalWrite(Arm_reset, HIGH);
-
   RC();
   int v = (RCinput[5] - 1080)*180/900;
   Serial.println(v); // print RC input in Serial Monitor
@@ -77,13 +61,10 @@ void loop() {
     Turn_Left(255);
   }
   if (RCinput[5] == 2000){
-    Serial.println("Reset Robot Arm");
-    digitalWrite(Arm_reset, LOW);
-    delay(10);
-    digitalWrite(Arm_reset, HIGH);
+    Serial.println("Reset?");
   }
   if (RCinput[5] < 2000){
-    digitalWrite(Arm_reset, HIGH);
+    Serial.println("Do not Reset?");
   }
 
 }
@@ -100,43 +81,50 @@ void RC(){
 
 ///////////////// Driving Functions/////////////////
 void Stop(){
-  digitalWrite(Dir1_R, LOW);
-  digitalWrite(Dir2_R, HIGH); 
-  analogWrite(Speed_R, 0);
-  digitalWrite(Dir1_L, LOW); 
-  digitalWrite(Dir2_L, HIGH); 
-
-  analogWrite(Speed_L, 0);
+  MA1_Forward(0);
+  MB1_Forward(0);
 }
 void Go_Forward(int driving_speed){
-  digitalWrite(Dir1_R, LOW);
-  digitalWrite(Dir2_R, HIGH); 
-  analogWrite(Speed_R, driving_speed);
-  digitalWrite(Dir1_L, LOW); 
-  digitalWrite(Dir2_L, HIGH); 
-  analogWrite(Speed_L, driving_speed);
+  MA1_Forward(driving_speed);
+  MB1_Forward(driving_speed);
 }
 void Go_Backward(int driving_speed){
-  digitalWrite(Dir1_R, HIGH);
-  digitalWrite(Dir2_R, LOW);
-  analogWrite(Speed_R, driving_speed);
-  digitalWrite(Dir1_L, HIGH); 
-  digitalWrite(Dir2_L, LOW); 
-  analogWrite(Speed_L, driving_speed); 
+  MA2_Backward(driving_speed);
+  MB2_Backward(driving_speed);
 }
 void Turn_Left(int driving_speed){
-  digitalWrite(Dir1_R, LOW);
-  digitalWrite(Dir2_R, HIGH); 
-  analogWrite(Speed_R, driving_speed);
-  digitalWrite(Dir1_L, HIGH); 
-  digitalWrite(Dir2_L, LOW); 
-  analogWrite(Speed_L, driving_speed); 
+  MA2_Backward(driving_speed);
+  MB1_Forward(driving_speed);
 }
 void Turn_Right(int driving_speed){
-  digitalWrite(Dir1_L, LOW); 
-  digitalWrite(Dir2_L, HIGH); 
-  analogWrite(Speed_L, driving_speed);
-  digitalWrite(Dir1_R, HIGH);
-  digitalWrite(Dir2_R, LOW);
-  analogWrite(Speed_R, driving_speed);
+  MA1_Forward(driving_speed);
+  MB2_Backward(driving_speed);
+}
+
+// LEFT = MA
+void MA1_Forward(int Speed1)  //fast decay; Speed = High duty-cycle
+{
+     analogWrite(IA1,Speed1);
+     digitalWrite(IA2,LOW);
+}
+
+void MA2_Backward(int Speed1)  //slow decay; Speed = Low duty-cycle
+{
+    int Speed2=255-Speed1;
+    analogWrite(IA1,Speed2);
+    digitalWrite(IA2,HIGH);
+}
+
+// LEFT = MB
+void MB1_Forward(int Speed1)
+{
+     analogWrite(IB1,Speed1);
+     digitalWrite(IB2,LOW);
+}
+
+void MB2_Backward(int Speed1)
+{
+    int Speed2=255-Speed1;
+    analogWrite(IB1,Speed2);
+    digitalWrite(IB2,HIGH);
 }
