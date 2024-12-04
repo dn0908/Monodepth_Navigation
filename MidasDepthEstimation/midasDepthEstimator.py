@@ -130,8 +130,8 @@ if __name__ == '__main__':
 
 	# Initialize webcam
 	camera = cv2.VideoCapture(0, cv2.CAP_DSHOW)
-	cv2.namedWindow("Depth Image", cv2.WINDOW_NORMAL) 	
-
+	cv2.namedWindow("Depth Image", cv2.WINDOW_NORMAL)
+	
 	while True:
 
 		# Read frame from the webcam

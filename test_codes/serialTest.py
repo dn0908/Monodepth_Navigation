@@ -1,7 +1,7 @@
 import serial
 import time
 
-serial_port = "/dev/ttymxc0"
+serial_port = "/dev/ttymxc0" # For google coral dev board (UART port 0)
 baud_rate = 115200
 
 try:
