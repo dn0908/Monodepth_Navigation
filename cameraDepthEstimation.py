@@ -31,7 +31,7 @@ while True:
         break
     # Read frame from the webcam
     ret, img = camera.read()
-    img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+    # img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
     ###################################################################
     inference_start_time = time.perf_counter()
     # Estimate depth
