@@ -9,16 +9,21 @@ try:
     time.sleep(2)
     
     message = "F"
-    
-    ser.write(message)
-    
+    serial_write_start_time = time.perf_counter()
+    ser.write(message.encode())
+    serial_write_end_time = time.perf_counter()
+    serial_writing_time = serial_write_end_time - serial_write_start_time
     print(f"Message sent: {message}")
+    print(f"Serial writing time: {serial_writing_time}")
     time.sleep(1)
-    message = "F"
-    
-    ser.write(message)
-    
-    print(f"Message sent again: {message}")
+
+    essage = "F"
+    serial_write_start_time = time.perf_counter()
+    ser.write(message.encode())
+    serial_write_end_time = time.perf_counter()
+    serial_writing_time = serial_write_end_time - serial_write_start_time
+    print(f"Message sent: {message}")
+    print(f"Serial writing time: {serial_writing_time}")
     time.sleep(1)
 
     ser.close()
