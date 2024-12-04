@@ -13,8 +13,8 @@ total_inference_duration = 0
 
 # Initialize webcam
 camera = cv2.VideoCapture(0)
-camera.set(cv2.CAP_PROP_FRAME_WIDTH, 324)
-camera.set(cv2.CAP_PROP_FRAME_HEIGHT, 243)
+# camera.set(cv2.CAP_PROP_FRAME_WIDTH, 324)
+# camera.set(cv2.CAP_PROP_FRAME_HEIGHT, 243)
 
 # cv2.namedWindow("Depth Image", cv2.WINDOW_NORMAL)
 fourcc = cv2.VideoWriter_fourcc(*'mp4v')
