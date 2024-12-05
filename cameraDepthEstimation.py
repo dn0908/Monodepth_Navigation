@@ -29,7 +29,7 @@ while True:
         break
     # Read frame from the webcam
     ret, img = camera.read()
-    img = cv2.resize(img, (320, 240))
+    img = cv2.resize(img, (256, 256))
     ###################################################################
     inference_start_time = time.perf_counter()
     # Estimate depth
