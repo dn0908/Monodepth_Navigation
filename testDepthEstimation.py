@@ -25,7 +25,7 @@ def capture_frames():
     """Thread function to capture frames from the webcam."""
     while True:
         ret, frame = camera.read()
-        if ret:
+        if ret and frame_queue.qsize() < 5:
             frame = cv2.resize(frame, (320, 240))
             if not frame_queue.full():
                 frame_queue.put(frame)
@@ -60,7 +60,7 @@ def depth_estimation():
             # Combine RGB image and depth image
             img_out = np.hstack((img, colorDepth))
             img_out = cv2.resize(img_out, (640, 240))
-            
+
             # Write the combined image to the output video
             with output_lock:
                 out_video.write(img_out)
