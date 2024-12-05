@@ -58,25 +58,37 @@ class midasDepthEstimator():
 
 		return colorizedDisparity
 
-	def prepareInputForInference(self, image):
-		img = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
-		self.img_height, self.img_width, self.img_channels = img.shape
+	# def prepareInputForInference(self, image):
+	# 	img = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+	# 	self.img_height, self.img_width, self.img_channels = img.shape
 
-		# Input values should be from -1 to 1 with a size of 128 x 128 pixels for the fornt model
-		# and 256 x 256 pixels for the back model
-		# img_input = cv2.resize(img, (self.inputWidth,self.inputHeight),interpolation = cv2.INTER_CUBIC).astype(np.float32)
-		img_input = cv2.resize(img, (128, 128), interpolation=cv2.INTER_CUBIC).astype(np.float32)
+	# 	# Input values should be from -1 to 1 with a size of 128 x 128 pixels for the fornt model
+	# 	# and 256 x 256 pixels for the back model
+	# 	# img_input = cv2.resize(img, (self.inputWidth,self.inputHeight),interpolation = cv2.INTER_CUBIC).astype(np.float32)
+	# 	img_input = cv2.resize(img, (128, 128), interpolation=cv2.INTER_CUBIC).astype(np.float32)
 		
 
-		# Scale input pixel values to -1 to 1
-		mean=[0.485, 0.456, 0.406]
-		std=[0.229, 0.224, 0.225]
-		reshape_img = img_input.reshape(1, self.inputHeight, self.inputWidth,3)
-		img_input = ((img_input/ 255.0 - mean) / std).astype(np.float32)
-		img_input = img_input[np.newaxis,:,:,:]        
+	# 	# Scale input pixel values to -1 to 1
+	# 	mean=[0.485, 0.456, 0.406]
+	# 	std=[0.229, 0.224, 0.225]
+	# 	reshape_img = img_input.reshape(1, self.inputHeight, self.inputWidth,3)
+	# 	img_input = ((img_input/ 255.0 - mean) / std).astype(np.float32)
+	# 	img_input = img_input[np.newaxis,:,:,:]        
 
+	# 	return img_input
+
+	def prepareInputForInference(self, image):
+		img = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)  # Ensure RGB format
+		self.img_height, self.img_width, self.img_channels = img.shape
+		# Resize to the input dimensions expected by the model
+		img_input = cv2.resize(img, (self.inputWidth, self.inputHeight), interpolation=cv2.INTER_CUBIC).astype(np.float32)
+		# Normalize input pixel values to -1 to 1
+		mean = [0.485, 0.456, 0.406]
+		std = [0.229, 0.224, 0.225]
+		img_input = (img_input / 255.0 - mean) / std
+		# Reshape to (1, height, width, 3)
+		img_input = img_input.reshape(1, self.inputHeight, self.inputWidth, 3)
 		return img_input
-
 
 	# # For quantized model
 	# def prepareInputForInference(self, image):
