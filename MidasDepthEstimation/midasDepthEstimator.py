@@ -30,11 +30,11 @@ class midasDepthEstimator():
 		 	# url = 'https://tfhub.dev/intel/lite-model/midas/v2_1_small/1/lite/1?lite-format=tflite'
 		 	# urllib.request.urlretrieve(url, modelPath)
 
-		# self.interpreter = Interpreter(model_path=modelPath)
-		# self.interpreter.allocate_tensors()
-
-		self.interpreter = Interpreter(model_path=modelPath, experimental_delegates=[load_delegate('libedgetpu.so.1')])
+		self.interpreter = Interpreter(model_path=modelPath)
 		self.interpreter.allocate_tensors()
+
+		# self.interpreter = Interpreter(model_path=modelPath, experimental_delegates=[load_delegate('libedgetpu.so.1')])
+		# self.interpreter.allocate_tensors()
 
 		# Get model info
 		self.getModelInputDetails()
