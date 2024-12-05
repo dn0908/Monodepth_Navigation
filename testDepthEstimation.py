@@ -25,7 +25,7 @@ def capture_frames():
     """Thread function to capture frames from the webcam."""
     while True:
         ret, frame = camera.read()
-        if ret and frame_queue.qsize() < 5:
+        if ret:
             frame = cv2.resize(frame, (320, 240))
             if not frame_queue.full():
                 frame_queue.put(frame)
