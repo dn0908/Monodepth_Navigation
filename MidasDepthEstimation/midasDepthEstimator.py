@@ -77,18 +77,13 @@ class midasDepthEstimator():
 	def prepareInputForInference(self, image):
 		img = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
 		self.img_height, self.img_width, self.img_channels = img.shape
-
 		# Resize the image to the input size of the model
 		img_input = cv2.resize(img, (self.inputWidth, self.inputHeight), interpolation=cv2.INTER_CUBIC)
-
 		# Convert to UINT8 format as expected by the quantized model
 		img_input = img_input.astype(np.uint8)
-
 		# Add batch dimension
 		img_input = np.expand_dims(img_input, axis=0)
-
-    	return img_input
-
+		return img_input
 
 
 	def inference(self, img_input):
