@@ -21,7 +21,8 @@ class midasDepthEstimator():
 
 
 	def initializeModel(self):
-		modelPath = 'models/midasModel.tflite'
+		# modelPath = 'models/midasModel.tflite'
+		modelPath = 'models/midas_quantized.tflite'
 
 		# Download model fif not available already
 		if not os.path.isfile(modelPath):
@@ -131,7 +132,7 @@ if __name__ == '__main__':
 	# Initialize webcam
 	camera = cv2.VideoCapture(0, cv2.CAP_DSHOW)
 	cv2.namedWindow("Depth Image", cv2.WINDOW_NORMAL)
-	
+
 	while True:
 
 		# Read frame from the webcam
