@@ -86,6 +86,7 @@ class midasDepthEstimator():
 		mean = [0.485, 0.456, 0.406]
 		std = [0.229, 0.224, 0.225]
 		img_input = (img_input / 255.0 - mean) / std
+		img_input = img_input.astype(np.float32)
 		# Reshape to (1, height, width, 3)
 		img_input = img_input.reshape(1, self.inputHeight, self.inputWidth, 3)
 		return img_input
