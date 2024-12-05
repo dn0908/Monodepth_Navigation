@@ -20,7 +20,7 @@ out_video = cv2.VideoWriter(
         "output.mp4",
         fourcc,
         1,
-        (640, 240),
+        (512, 256),
     )
 video_start_time = time.perf_counter()
 
@@ -45,7 +45,7 @@ while True:
     # Join the input image, the estiamted depth and the combined image
     #img_out = np.hstack((img, colorDepth, combinedImg))
     img_out = np.hstack((img, colorDepth))
-    cv2.resize(img_out, (640, 240))
+    cv2.resize(img_out, (512, 256))
     out_video.write(img_out)
     # cv2.imshow("Depth Image", img_out)
     # # Press key q to stop
