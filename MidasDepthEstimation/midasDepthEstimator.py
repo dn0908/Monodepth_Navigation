@@ -21,8 +21,8 @@ class midasDepthEstimator():
 
 
 	def initializeModel(self):
-		# modelPath = 'models/midasModel.tflite'
-		modelPath = 'models/midas_quantized.tflite'
+		modelPath = 'models/midasModel_edgetpu.tflite'
+		# modelPath = 'models/midas_quantized.tflite'
 
 		# Download model fif not available already
 		if not os.path.isfile(modelPath):
@@ -30,7 +30,10 @@ class midasDepthEstimator():
 		 	# url = 'https://tfhub.dev/intel/lite-model/midas/v2_1_small/1/lite/1?lite-format=tflite'
 		 	# urllib.request.urlretrieve(url, modelPath)
 
-		self.interpreter = Interpreter(model_path=modelPath)
+		# self.interpreter = Interpreter(model_path=modelPath)
+		# self.interpreter.allocate_tensors()
+
+		self.interpreter = Interpreter(model_path=modelPath, experimental_delegates=[load_delegate('libedgetpu.so.1')])
 		self.interpreter.allocate_tensors()
 
 		# Get model info
@@ -55,35 +58,37 @@ class midasDepthEstimator():
 
 		return colorizedDisparity
 
-	# def prepareInputForInference(self, image):
-	# 	img = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
-	# 	self.img_height, self.img_width, self.img_channels = img.shape
-
-	# 	# Input values should be from -1 to 1 with a size of 128 x 128 pixels for the fornt model
-	# 	# and 256 x 256 pixels for the back model
-	# 	img_input = cv2.resize(img, (self.inputWidth,self.inputHeight),interpolation = cv2.INTER_CUBIC).astype(np.float32)
-		
-	# 	# Scale input pixel values to -1 to 1
-	# 	mean=[0.485, 0.456, 0.406]
-	# 	std=[0.229, 0.224, 0.225]
-	# 	reshape_img = img_input.reshape(1, self.inputHeight, self.inputWidth,3)
-	# 	img_input = ((img_input/ 255.0 - mean) / std).astype(np.float32)
-	# 	img_input = img_input[np.newaxis,:,:,:]        
-
-	# 	return img_input
-
-
-	# For quantized model
 	def prepareInputForInference(self, image):
 		img = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
 		self.img_height, self.img_width, self.img_channels = img.shape
-		# Resize the image to the input size of the model
-		img_input = cv2.resize(img, (self.inputWidth, self.inputHeight), interpolation=cv2.INTER_CUBIC)
-		# Convert to UINT8 format as expected by the quantized model
-		img_input = img_input.astype(np.uint8)
-		# Add batch dimension
-		img_input = np.expand_dims(img_input, axis=0)
+
+		# Input values should be from -1 to 1 with a size of 128 x 128 pixels for the fornt model
+		# and 256 x 256 pixels for the back model
+		# img_input = cv2.resize(img, (self.inputWidth,self.inputHeight),interpolation = cv2.INTER_CUBIC).astype(np.float32)
+		img_input = cv2.resize(img, (128, 128), interpolation=cv2.INTER_CUBIC).astype(np.float32)
+		
+
+		# Scale input pixel values to -1 to 1
+		mean=[0.485, 0.456, 0.406]
+		std=[0.229, 0.224, 0.225]
+		reshape_img = img_input.reshape(1, self.inputHeight, self.inputWidth,3)
+		img_input = ((img_input/ 255.0 - mean) / std).astype(np.float32)
+		img_input = img_input[np.newaxis,:,:,:]        
+
 		return img_input
+
+
+	# # For quantized model
+	# def prepareInputForInference(self, image):
+	# 	img = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+	# 	self.img_height, self.img_width, self.img_channels = img.shape
+	# 	# Resize the image to the input size of the model
+	# 	img_input = cv2.resize(img, (self.inputWidth, self.inputHeight), interpolation=cv2.INTER_CUBIC)
+	# 	# Convert to UINT8 format as expected by the quantized model
+	# 	img_input = img_input.astype(np.uint8)
+	# 	# Add batch dimension
+	# 	img_input = np.expand_dims(img_input, axis=0)
+	# 	return img_input
 
 
 	def inference(self, img_input):
@@ -103,8 +108,8 @@ class midasDepthEstimator():
 		normalizedDisparity = (255 * (rawDisparity - depth_min) / (depth_max - depth_min)).astype("uint8")
 
 		# Resize disparity map to the sam size as the image inference
-		estimatedDepth = cv2.resize(normalizedDisparity, (img_shape[1], img_shape[0]), interpolation=cv2.INTER_CUBIC)
-
+		# estimatedDepth = cv2.resize(normalizedDisparity, (img_shape[1], img_shape[0]), interpolation=cv2.INTER_CUBIC)
+		estimatedDepth = cv2.resize(normalizedDisparity, (img_shape[1], img_shape[0]), interpolation=cv2.INTER_LINEAR)
 		return estimatedDepth
 
 	def drawDepth(self, processedDisparity):
