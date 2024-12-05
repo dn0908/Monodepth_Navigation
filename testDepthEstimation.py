@@ -49,11 +49,18 @@ def depth_estimation():
             total_inference_duration += inference_duration
             print(f"Inference time: {inference_duration:.4f}s")
 
+            # Ensure depth image is 3-channel
+            if len(colorDepth.shape) == 2:  # Grayscale case
+                colorDepth = cv2.cvtColor(colorDepth, cv2.COLOR_GRAY2BGR)
+            elif len(colorDepth.shape) == 3 and colorDepth.shape[2] == 3:  # Already 3-channel
+                pass  # No conversion needed
+            else:
+                raise ValueError(f"Unexpected colorDepth shape: {colorDepth.shape}")
+
             # Combine RGB image and depth image
-            colorDepth = cv2.cvtColor(colorDepth, cv2.COLOR_GRAY2BGR)  # Ensure 3-channel depth map
             img_out = np.hstack((img, colorDepth))
             img_out = cv2.resize(img_out, (640, 240))
-
+            
             # Write the combined image to the output video
             with output_lock:
                 out_video.write(img_out)
