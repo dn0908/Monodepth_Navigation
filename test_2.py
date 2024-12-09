@@ -12,7 +12,7 @@ depthEstimator = midasDepthEstimator()
 # Variables
 frame_queue = Queue(maxsize=10)  # Shared queue for frames
 output_lock = Lock()             # Lock for video output operations
-BATCH_SIZE = 4                   # Number of frames to process in a batch
+BATCH_SIZE = 8                   # Number of frames to process in a batch
 
 # Initialize webcam
 camera = cv2.VideoCapture(0)
