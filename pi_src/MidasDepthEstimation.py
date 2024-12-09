@@ -19,7 +19,7 @@ class MidasDepthEstimator:
         self.initialize_model()
 
     def initialize_model(self):
-        model_path = '/models/midasModel.tflite'
+        model_path = 'midasModel.tflite'
 
         # Verify the model exists
         if not os.path.isfile(model_path):
@@ -37,14 +37,16 @@ class MidasDepthEstimator:
         input_tensor = self.prepare_input_for_inference(image)
         raw_disparity = self.inference(input_tensor)
         processed_disparity = self.process_raw_disparity(raw_disparity, image.shape)
-        return self.draw_depth(processed_disparity)
+
+        resized_disparity = np.resize(processed_disparity, (image.shape[0], image.shape[1]))
+        return self.draw_depth(resized_disparity)
 
     def prepare_input_for_inference(self, image):
         # Convert RGB888 image to float32 and resize for the model
         img = image.astype(np.float32) / 255.0
         img = (img - np.array([0.485, 0.456, 0.406])) / np.array([0.229, 0.224, 0.225])
         img = np.resize(img, (self.input_height, self.input_width, 3))
-        img = img.reshape(1, self.input_height, self.input_width, 3)
+        img = img.reshape(1, self.input_height, self.input_width, 3).astype(np.float32)
         return img
 
     def inference(self, img_input):

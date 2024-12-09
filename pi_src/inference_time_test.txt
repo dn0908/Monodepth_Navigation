@@ -1,0 +1,169 @@
+Inference time :  0.3445051689996035 s
+0
+Inference time :  0.33062220299962064 s
+0
+Inference time :  0.3320272399996611 s
+0
+Inference time :  0.3308224620004694 s
+2
+Inference time :  0.33250837000014144 s
+2
+Inference time :  0.3314619809998476 s
+2
+Inference time :  0.33282300000064424 s
+2
+Inference time :  0.330047759000081 s
+2
+Inference time :  0.33270224100033374 s
+2
+Inference time :  0.33131668500027445 s
+2
+Inference time :  0.3324204259997714 s
+2
+Inference time :  0.3712863400005517 s
+2
+Inference time :  0.33147529600046255 s
+2
+Inference time :  0.33101461099977314 s
+2
+Inference time :  0.3328534269994634 s
+2
+Inference time :  0.3296420180004134 s
+2
+Inference time :  0.33191401900057826 s
+2
+Inference time :  0.33041096400029346 s
+2
+Inference time :  0.33177018600054 s
+2
+Inference time :  0.3307195010002033 s
+2
+Inference time :  0.33269503799965605 s
+2
+Inference time :  0.3306106299996827 s
+2
+Inference time :  0.3317015740003626 s
+2
+Inference time :  0.3305184629998621 s
+2
+Inference time :  0.33202729700042255 s
+2
+Inference time :  0.33058477799932007 s
+2
+Inference time :  0.3325016489998234 s
+2
+Inference time :  0.33061475999966206 s
+2
+Inference time :  0.3323904829994717 s
+2
+Inference time :  0.33096248299989384 s
+2
+Inference time :  0.3321360019999702 s
+2
+Inference time :  0.33058609399995476 s
+2
+Inference time :  0.3331136130000232 s
+2
+Inference time :  0.3306460009998773 s
+2
+Inference time :  0.33221161300025415 s
+2
+Inference time :  0.3305837050002083 s
+2
+Inference time :  0.33119400099985796 s
+2
+Inference time :  0.3296093339995423 s
+2
+Inference time :  0.33091429799969774 s
+3
+Inference time :  0.3295105759998478 s
+3
+Inference time :  0.3306769829996483 s
+3
+Inference time :  0.32917031699980726 s
+3
+Inference time :  0.3310588900003495 s
+3
+Inference time :  0.33021833500060893 s
+3
+Inference time :  0.33233850199940207 s
+3
+Inference time :  0.3302706690001287 s
+3
+Inference time :  0.3303195759999653 s
+3
+Inference time :  0.328355761000239 s
+3
+Inference time :  0.33007263199942827 s
+3
+Inference time :  0.32852285400076653 s
+3
+Inference time :  0.33061570600057166 s
+3
+Inference time :  0.3292742800003907 s
+3
+Inference time :  0.3315349829999832 s
+3
+Inference time :  0.3286353350003992 s
+3
+Inference time :  0.33080616899951565 s
+3
+Inference time :  0.3282057979995443 s
+3
+Inference time :  0.3314284100006262 s
+3
+Inference time :  0.3288255580000623 s
+3
+Inference time :  0.33174302200040984 s
+3
+Inference time :  0.3294555769998624 s
+3
+Inference time :  0.3307057439997152 s
+3
+Inference time :  0.33000942900071095 s
+3
+Inference time :  0.3311934849998579 s
+3
+Inference time :  0.3301365950001127 s
+3
+Inference time :  0.33020522499919025 s
+3
+Inference time :  0.3294804100005422 s
+3
+Inference time :  0.3313493360001303 s
+3
+Inference time :  0.32952189199932036 s
+3
+Inference time :  0.33177754000007553 s
+3
+Inference time :  0.3302020030005224 s
+3
+Inference time :  0.3314330039993365 s
+3
+Inference time :  0.32843028100069205 s
+3
+Inference time :  0.3311532999996416 s
+3
+Inference time :  0.32894157800001267 s
+3
+Inference time :  0.3314378189998024 s
+3
+Inference time :  0.33153389299968694 s
+3
+Inference time :  0.3389311720002297 s
+3
+Inference time :  0.32891944799939665 s
+2
+Inference time :  0.3318983740000476 s
+2
+Inference time :  0.3306489659998988 s
+2
+Inference time :  0.33161089300028834 s
+2
+Inference time :  0.32953789200018946 s
+2
+Inference time :  0.3311703559993475 s
+2
+Inference time :  0.32933598599993275 s
+2
+Inference time :  0.3315961900007096 s

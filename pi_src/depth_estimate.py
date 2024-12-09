@@ -10,8 +10,8 @@ from utils import SimpleFPS , draw_fps
 import argparse
 import time
 
-from MidasDepthEstimator import MidasDepthEstimator
-self.depth_estimator = MidasDepthEstimator()
+from MidasDepthEstimation import MidasDepthEstimator
+
 
 class VideoThreadPiCam(QThread):
     change_pixmap_signal = pyqtSignal(np.ndarray)
@@ -19,6 +19,7 @@ class VideoThreadPiCam(QThread):
     def __init__(self):
         super().__init__()
         self.grab_frame = True
+        self.depth_estimator = MidasDepthEstimator()
 
     def run(self):
         # capture from web cam
@@ -40,8 +41,14 @@ class VideoThreadPiCam(QThread):
 class App(QWidget):
     def __init__(self):
         super().__init__()
+        self.depth_estimator = MidasDepthEstimator()
+
+        self.inference_start_time = 0
+        self.inference_stop_time = 0
+        self.total_inference_duration = 0
+
         self.setWindowTitle("Qt UI")
-        self.disply_width = 640
+        self.disply_width = 640 *2
         self.display_height = 480
         # create the label that holds the image
         self.image_label = QLabel(self)
@@ -60,10 +67,19 @@ class App(QWidget):
     def update_image(self, cv_img):
         """Updates the image_label with a new opencv image"""
         # Perform depth estimation
+        self.inference_start_time = time.perf_counter()
+
         depth_img = self.depth_estimator.estimate_depth(cv_img)
 
         # Combine RGB and depth images side-by-side
-        combined_img = np.hstack((cv_img, depth_img))
+        # combined_img = np.hstack((cv_img, depth_img))
+        self.inference_stop_time = time.perf_counter()
+        self.inference_duration = self.inference_stop_time - self.inference_start_time
+        print("Inference time : ", self.inference_duration, "s")
+        self.total_inference_duration += self.inference_duration
+
+
+        combined_img = depth_img
 
         fps, _ = self.fps_util.get_fps()
         draw_fps(combined_img, fps)
